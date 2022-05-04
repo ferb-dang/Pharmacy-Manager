@@ -1,3 +1,4 @@
+from datetime import date
 from pydantic import BaseModel
 
 
@@ -16,13 +17,22 @@ class MedicinesBase (BaseModel):
 
 
 class MedicinesCreate (MedicinesBase):
-    id: int
+    name: str
+    medical_function: str
+    price: str
 
 # Những nhãn thuốc được update
 
 
 class MedicinesUpdate (MedicinesBase):
-    pass
+    id: int
+    name: str
+    medical_function: str
+    quantity: int
+    price: str
+    manufacture_date: date
+    expire_date: date
+    status: str
 
 
 class Medicines (BaseModel):

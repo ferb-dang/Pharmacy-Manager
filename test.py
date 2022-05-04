@@ -1,15 +1,18 @@
-from typing import Optional
+from fastapi import APIRouter
 
-from fastapi import FastAPI
-
-app = FastAPI()
+router = APIRouter()
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+@router.get("/users/", tags=["users"])
+async def read_users():
+    return [{"username": "Rick"}, {"username": "Morty"}]
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+@router.get("/users/me", tags=["users"])
+async def read_user_me():
+    return {"username": "fakecurrentuser"}
+
+
+@router.get("/users/{username}", tags=["users"])
+async def read_user(username: str):
+    return {"username": username}

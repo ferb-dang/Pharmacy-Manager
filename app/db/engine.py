@@ -6,3 +6,10 @@ engine = create_engine("postgresql://postgres:nam1ahai@localhost/dbo_pharmacy")
 
 # "phiên dịch" những cấu hình của hàm Session()
 session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+def create_session():
+    db = session_local()
+    try:
+        yield db
+    finally:
+        db.close()

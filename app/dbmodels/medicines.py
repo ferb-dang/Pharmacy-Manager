@@ -22,9 +22,9 @@ class Medicines(Base):
         "Orders", secondary=order_medicine, back_populates="medicines"
     )
 
-    @classmethod
-    def create(cls, obj: any):
-        translate = cls()
-        for k in dict(obj):
-            setattr(translate, k, getattr(obj, k, ""))
-        return translate
+    # @classmethod
+    # def create(cls, obj: any):
+    #     translate = cls()
+    #     for k in dict(obj):
+    #         setattr(translate, k, getattr(obj, k, ""))
+    #     return translate
