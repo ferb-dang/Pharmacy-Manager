@@ -20,9 +20,10 @@ class MedicinesCreate (MedicinesBase):
     status: str
 
 #FastApi will using these models to update data
-class MedicinesUpdate (MedicinesCreate):
-    ...
-
+class MedicinesUpdate (MedicinesBase):
+    manufacture_date: date
+    expire_date: date
+    status: str
 
 class Medicines (MedicinesBase):
     id: int 

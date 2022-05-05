@@ -1,11 +1,12 @@
 from pydantic import BaseModel
+from typing import Optional
 
 
 #You can read data from these models
 class OrdersBase (BaseModel):
-    status : str = None
-    shipping_address : str = None
-    shipping_fee : str = None
+    status : Optional[str] = None
+    shipping_address : Optional[str] = None
+    shipping_fee : Optional[str] = None
 
     class Config:
         orm_mode = True
@@ -16,11 +17,10 @@ class OrdersCreate (OrdersBase):
 
 #FastApi will using these models to update order fee and address
 class OrdersUpdate (OrdersBase):
-    shipping_address : str
-    shipping_fee : str
+    pass
 
 #FastApi will using these models to update status
-class OrdersStatusUpdate (OrdersBase):
+class OrdersStatusUpdate (BaseModel):
     status : str
 
 class Orders (OrdersBase):

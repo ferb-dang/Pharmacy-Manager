@@ -5,6 +5,7 @@ class RolesBase (BaseModel):
     title: str = None
     description: str = None
 
+
     class Config:
         orm_mode = True
 

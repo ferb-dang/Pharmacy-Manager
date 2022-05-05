@@ -2,8 +2,8 @@ from dbmodels import Orders
 from .base import BaseService
 
 
-class MedicineService(BaseService[Orders]):
+class OrderService(BaseService[Orders]):
     pass
 
-medicine_services = MedicineService(Orders) #get_one and get_all and delete_one
+order_services = OrderService(Orders) #get_one and get_all and delete_one
 

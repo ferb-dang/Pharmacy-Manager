@@ -4,7 +4,10 @@ from pydantic import BaseModel
 
 #You can read data from these models
 class UsersBase (BaseModel):
+    id : int
     role_id : Optional[int] = None
+    user_name: Optional[str] = None
+    password: Optional[str] = None
     name : Optional[str] = None
     gender : Optional[int] = None
     date_of_birth : Optional[date] = None
