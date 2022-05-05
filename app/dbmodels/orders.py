@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 from db.base import Base
 from .order_medicine_association import order_medicine
 
-
+# Create database "tbl_orders"
 class Orders(Base):
     __tablename__ = "tbl_orders"
 
@@ -19,10 +19,3 @@ class Orders(Base):
     medicines = relationship(
         "Medicines", secondary=order_medicine, back_populates="orders"
     )
-
-    @classmethod
-    def create(cls, obj: any):
-        translate = cls()
-        for k in dict(obj):
-            setattr(translate, k, getattr(obj, k, ""))
-        return translate

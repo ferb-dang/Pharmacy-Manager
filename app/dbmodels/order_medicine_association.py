@@ -1,10 +1,9 @@
 from sqlalchemy import Integer, Column, ForeignKey, Table
 
-
 from db.base import Base
 
 
-# Bảng csdl nối bảng "tbl_orders" với "tbl_medicines"
+# Create association database  connect "tbl_orders" with "tbl_medicines"
 order_medicine = Table(
     "tbl_order_medicine",
     Base.metadata,

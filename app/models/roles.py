@@ -1,25 +1,19 @@
 from pydantic import BaseModel
 
-# Những thông tin roles có thể đọc
-
-
+#You can read data from these models
 class RolesBase (BaseModel):
     title: str = None
     description: str = None
-    slug: str = None
 
     class Config:
         orm_mode = True
 
-# Create thêm permission
-
-
+#FastApi will using these models to create data
 class RolesCreate (RolesBase):
     pass
 
-# Update thêm permission
 
-
+#FastApi will using these models to update data
 class RolesUpdate (RolesBase):
     pass
 

@@ -3,7 +3,7 @@ from sqlalchemy import  Column, ForeignKey, Table
 
 from db.base import Base
 
-# Bảng csdl trung gian giữa Roles và Permissions
+# Create association database  connect "tbl_roles" with "tbl_permissions"
 role_permission = Table(
     "tbl_role_permissions",
     Base.metadata,

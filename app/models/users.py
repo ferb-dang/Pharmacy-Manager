@@ -1,23 +1,25 @@
 from datetime import date
-from lib2to3.pytree import Base
+from typing import Optional
 from pydantic import BaseModel
 
-#Những thông tin được đọc từ users
+#You can read data from these models
 class UsersBase (BaseModel):
-    role_id : int = None
-    name : str = None
-    gender : int = None
-    date_of_birth : date = None
-    email : str = None
-    address : str = None 
-    phone_numbers: str = None
+    role_id : Optional[int] = None
+    name : Optional[str] = None
+    gender : Optional[int] = None
+    date_of_birth : Optional[date] = None
+    email : Optional[str] = None
+    address : Optional[str] = None
+    phone_numbers: Optional[str] = None
 
     class Config:
         orm_mode = True
 
+#FastApi will using these models to create data
 class UsersCreate (UsersBase):
     pass
 
+#FastApi will using these models to update data
 class UsersUpdate (UsersBase):
     pass
 

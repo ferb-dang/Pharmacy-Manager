@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-#Những thông tin được đọc về Order
+#You can read data from these models
 class OrdersBase (BaseModel):
     status : str = None
     shipping_address : str = None
@@ -10,19 +10,18 @@ class OrdersBase (BaseModel):
     class Config:
         orm_mode = True
 
-#Những thông tin Order được tạo ra
+#FastApi will using these models to create data
 class OrdersCreate (OrdersBase):
+    pass
+
+#FastApi will using these models to update order fee and address
+class OrdersUpdate (OrdersBase):
     shipping_address : str
     shipping_fee : str
 
-#Update trạng thái của order
+#FastApi will using these models to update status
 class OrdersStatusUpdate (OrdersBase):
     status : str
-
-#Update thông tin về địa chỉ vận chuyển và chi phí
-class OrdersStatusUpdate (OrdersBase):
-    shipping_address : str
-    shipping_fee : str
 
 class Orders (OrdersBase):
     id : int

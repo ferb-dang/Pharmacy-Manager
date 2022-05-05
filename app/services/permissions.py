@@ -5,5 +5,5 @@ from .base import BaseService
 class MedicineService(BaseService[Permissions]):
     pass
 
-medicine_services = MedicineService(Permissions)
+medicine_services = MedicineService(Permissions) #get_one and get_all and delete_one
 

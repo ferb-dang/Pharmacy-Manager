@@ -1,11 +1,11 @@
-from sqlalchemy import Integer, String, Column, ForeignKey, Date
+from sqlalchemy import Integer, String, Column, Date
 from sqlalchemy.orm import relationship
 
 from db.base import Base 
 from .order_medicine_association import order_medicine
 
 
-# Tạo bảng csdl "tbl_medicines"
+# create database "tbl_medicines"
 class Medicines(Base):
     __tablename__ = "tbl_medicines"
 
@@ -21,10 +21,3 @@ class Medicines(Base):
     orders = relationship(
         "Orders", secondary=order_medicine, back_populates="medicines"
     )
-
-    # @classmethod
-    # def create(cls, obj: any):
-    #     translate = cls()
-    #     for k in dict(obj):
-    #         setattr(translate, k, getattr(obj, k, ""))
-    #     return translate

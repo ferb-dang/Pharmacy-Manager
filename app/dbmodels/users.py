@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from db.base import Base
 
 
+# create database "tbl_users"
 class Users(Base):
     __tablename__ = "tbl_users"
 
@@ -18,11 +19,4 @@ class Users(Base):
     phone_numbers = Column(String(20))
     roles = relationship(
         "Roles", backref="users"
-    )  # Thiết lập kết nối bảng "tbl_users" với "tbl_roles"
-
-    @classmethod
-    def create(cls, obj: any):
-        translate = cls()
-        for k in dict(obj):
-            setattr(translate, k, getattr(obj, k, ""))
-        return translate
+    )  # Create database connection "tbl_users" with "tbl_roles"

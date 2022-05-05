@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-#Những thông tin permissions có thể đọc
+#You can read data from these models
 class PermissionsBase (BaseModel):
     title : str = None
     description : str = None
@@ -9,11 +9,12 @@ class PermissionsBase (BaseModel):
     class Config:
         orm_mode = True
 
-#Create thêm permission
+
+#FastApi will using these models to create data
 class PermissionsCreate (PermissionsBase):
     pass
 
-#Update thêm permission
+#FastApi will using these models to update data
 class PermissionsUpdate (PermissionsBase):
     pass
 

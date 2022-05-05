@@ -2,9 +2,8 @@ from datetime import date
 from pydantic import BaseModel
 
 
-# Những nhãn thuốc được đọc từ db
+#You can read data from these models
 class MedicinesBase (BaseModel):
-    id: int = None
     name: str = None
     medical_function: str = None
     quantity: int = None
@@ -13,27 +12,17 @@ class MedicinesBase (BaseModel):
     class Config:
         orm_mode = True
 
-# Nhãn thuốc được tạo ra
-
-
+#FastApi will using these models to create data
 class MedicinesCreate (MedicinesBase):
-    name: str
-    medical_function: str
-    price: str
-
-# Những nhãn thuốc được update
-
-
-class MedicinesUpdate (MedicinesBase):
     id: int
-    name: str
-    medical_function: str
-    quantity: int
-    price: str
     manufacture_date: date
     expire_date: date
     status: str
 
+#FastApi will using these models to update data
+class MedicinesUpdate (MedicinesCreate):
+    ...
 
-class Medicines (BaseModel):
-    id: int
+
+class Medicines (MedicinesBase):
+    id: int 
