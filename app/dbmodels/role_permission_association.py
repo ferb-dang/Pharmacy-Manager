@@ -7,6 +7,6 @@ from db.base import Base
 role_permission = Table(
     "tbl_role_permissions",
     Base.metadata,
-    Column("permissions_id", ForeignKey("tbl_permissions.id"), primary_key=True),
     Column("roles_id", ForeignKey("tbl_roles.id"), primary_key=True),
+    Column("permissions_id", ForeignKey("tbl_permissions.id"), primary_key=True),
 )

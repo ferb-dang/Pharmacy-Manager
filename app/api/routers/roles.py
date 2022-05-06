@@ -23,14 +23,3 @@ def read_roles(id: int, session: Session = Depends(create_session)):
     role = role_services.get_one(session, id)
     return role
 
-# # create a brand new user
-# @router.post("/role", tags=["role"], response_model=Roles)
-# def create_role(
-#     role_schemas: Roles, session: Session = Depends(create_session)
-# ):
-#     # user = get_by_phone_number(session, phone=user_schemas.phone_numbers)
-#     # if user:
-#     #     raise HTTPException(status_code=400, detail="User with this ID already exist in database")
-
-#     role = role_services.create_one(session, role_schemas)
-#     return role

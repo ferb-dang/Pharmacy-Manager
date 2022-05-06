@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 
 engine = create_engine("postgresql://postgres:nam1ahai@localhost/dbo_pharmacy")

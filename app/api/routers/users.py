@@ -53,8 +53,6 @@ def update_user(
 @router.delete("/user/{id}", tags=["user"])
 def delete_user(id: int, session: Session = Depends(create_session)):
     user = user_services.get_one(session, id)
-    session.delete(user)
-    session.commit()
     session.close()
     if not user:
         raise HTTPException(status_code=404, detail=f"user with id {id} not found")

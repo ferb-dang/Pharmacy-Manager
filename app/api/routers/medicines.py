@@ -53,8 +53,6 @@ def update_medicine(
 @router.delete("/mecdicine/{id}",tags=["medicine"])
 def delete_medicine(id: int, session: Session = Depends(create_session)):
     medicine = medicine_services.get_one(session, id)
-    session.delete(medicine)
-    session.commit()
     session.close()
     if not medicine:
         raise HTTPException(status_code=404, detail=f"medicine with id {id} not found")

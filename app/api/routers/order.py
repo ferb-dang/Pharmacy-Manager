@@ -39,8 +39,6 @@ def update_order(
 @router.delete("/order/{id}",tags=["order"])
 def delete_order(id: int, session: Session = Depends(create_session)):
     order = order_services.get_one(session, id)
-    session.delete(order)
-    session.commit()
     session.close()
     if not order:
         raise HTTPException(status_code=404, detail=f"Order with id {id} not found")
