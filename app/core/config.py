@@ -1,0 +1,2 @@
+SECRETKEY = "VoTmnFohfkzGnnFscDpM12"
+ALGORITHM = "HS256"

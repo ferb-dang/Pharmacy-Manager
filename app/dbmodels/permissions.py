@@ -6,6 +6,6 @@ from db.base import Base
 class Permissions(Base):
     __tablename__ = "tbl_permissions"
 
-    id = Column(Integer, primary_key=True, nullable=False, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     title = Column(String(255), nullable=False)
     description = Column(String(255), nullable=False)

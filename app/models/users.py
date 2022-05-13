@@ -4,7 +4,6 @@ from pydantic import BaseModel
 
 #You can read data from these models
 class UsersBase (BaseModel):
-    id : int
     role_id : Optional[int] = None
     user_name: Optional[str] = None
     password: Optional[str] = None
@@ -21,6 +20,15 @@ class UsersBase (BaseModel):
 #FastApi will using these models to create data
 class UsersCreate (UsersBase):
     pass
+
+class UserSignIn (BaseModel):
+    role_id: int
+    user_name: str
+    password: str
+
+class UserLogin (BaseModel):
+    user_name : str
+    password : str
 
 #FastApi will using these models to update data
 class UsersUpdate (UsersBase):

@@ -9,7 +9,7 @@ from .order_medicine_association import order_medicine
 class Medicines(Base):
     __tablename__ = "tbl_medicines"
 
-    id = Column(Integer, primary_key=True, nullable=False, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String(50))
     slug = Column(String(50))
     medical_function = Column(String(50))

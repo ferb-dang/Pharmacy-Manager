@@ -7,11 +7,11 @@ from db.base import Base
 class Users(Base):
     __tablename__ = "tbl_users"
 
-    id = Column(Integer, primary_key=True, nullable=False, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     role_id = Column(Integer, ForeignKey("tbl_roles.id"), nullable=False)
-    user_name = Column(String(20), nullable=False)
-    password = Column(String(20), nullable=False)
-    name = Column(String(50), nullable=False)
+    user_name = Column(String(20))
+    password = Column(String(70) )
+    name = Column(String(50))
     gender = Column(Integer)
     date_of_birth = Column(Date)
     email = Column(String(100))

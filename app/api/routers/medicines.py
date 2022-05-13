@@ -24,37 +24,41 @@ def read_medicine(id: int, session: Session = Depends(create_session)):
 
 
 # create a brand new medicine
-@router.post("/medicine",tags=["medicine"], response_model=MedicinesCreate)
+@router.post("/medicine", tags=["medicine"], response_model=MedicinesCreate)
 def create_medicine(
     medicine_schemas: MedicinesCreate, session: Session = Depends(create_session)
 ):
     medicine = get_by_name(session, name=medicine_schemas.name)
     if medicine:
-        raise HTTPException(status_code=400, detail="Medicine with this ID already exist in database")
+        raise HTTPException(
+            status_code=400, detail="Medicine with this ID already exist in database"
+        )
 
     medicine = medicine_services.create_one(session, medicine_schemas)
     return medicine
 
 
 # update some thing in a medicine
-@router.put("/medicine/{id}",tags=["medicine"], response_model=MedicinesUpdate)
+@router.put("/medicine/{id}", tags=["medicine"], response_model=MedicinesUpdate)
 def update_medicine(
     id: int,
     mecdicine_schemas: MedicinesUpdate,
-    session: Session = Depends(create_session)
+    session: Session = Depends(create_session),
 ):
-    medicine = medicine_services.update(session, id = id, data=mecdicine_schemas)
+    medicine = medicine_services.update(session, id=id, data=mecdicine_schemas)
     if not medicine:
         raise HTTPException(status_code=400, detail="ID not exist in database!")
 
-    return medicine 
+    return medicine
+
 
 # delete a medicine with ID
-@router.delete("/mecdicine/{id}",tags=["medicine"])
+@router.delete("/mecdicine/{id}", tags=["medicine"])
 def delete_medicine(id: int, session: Session = Depends(create_session)):
     medicine = medicine_services.get_one(session, id)
-    session.close()
     if not medicine:
         raise HTTPException(status_code=404, detail=f"medicine with id {id} not found")
 
-    return f"Succesfully delete medicine with id: {id}"
+    else:
+        medicine = medicine_services.delete_one(session, id)
+        return f"Succesfully delete medicine with id: {id}"

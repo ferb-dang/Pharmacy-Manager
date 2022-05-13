@@ -9,7 +9,7 @@ from .role_permission_association import role_permission
 class Roles(Base):
     __tablename__ = "tbl_roles"
 
-    id = Column(Integer, primary_key=True, nullable=False, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     title = Column(String(50), nullable=False)
     description = Column(String(255), nullable=False)
     slug = Column(String(50))
