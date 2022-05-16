@@ -23,19 +23,18 @@ def add_user (user_schemas: UserSignIn, session: Session=Depends(create_session)
     # session.refresh(user_login)
     user = user_services.check_user_name(session= session,  user_name=user_schemas.user_name)
     if user:
-        return HTTPException(status_code=400, detail = 'This user name is taken')
+        return HTTPException(status_code=400, detail = 'This user name is taken') 
+
     user = user_services.create_user(session, user_schemas)
-    return sign_jwt(user.user_name)
-
-
-user=[]
+    return sign_jwt({"user_name": user.user_name, "user_id": user.id, "role": user.role_id})
 
 
 @router.post("/login", tags=["login"])
-def user_login (user_chemas: UserLogin, session: Session = Depends(create_session)):
-    hashed_password = password_hash(user_chemas.password)
-    if user_services.check_exist_user(session=session, user_name=user_chemas.user_name, password=hashed_password):
-        return sign_jwt(user_chemas.user_name)
+def user_login (user_schemas: UserLogin, session: Session = Depends(create_session)):
+    hashed_password = password_hash(user_schemas.password)
+    user = user_services.check_exist_user(session=session, user_name=user_schemas.user_name, password=hashed_password)
+    if user :
+        return sign_jwt({"user_name": user.user_name, "user_id": user.id, "role": user.role_id})
     return  {
         "error": "Invalid login detail!"
     }

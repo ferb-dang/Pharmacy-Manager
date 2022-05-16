@@ -9,14 +9,14 @@ class Users(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     role_id = Column(Integer, ForeignKey("tbl_roles.id"), nullable=False)
-    user_name = Column(String(20))
+    user_name = Column(String(20), unique = True)
     password = Column(String(70) )
     name = Column(String(50))
     gender = Column(Integer)
     date_of_birth = Column(Date)
     email = Column(String(100))
     address = Column(String(500))
-    phone_numbers = Column(String(20))
+    phone_numbers = Column(String(20), unique = True)
     roles = relationship(
         "Roles", backref="users"
     )  # Create database connection "tbl_users" with "tbl_roles"

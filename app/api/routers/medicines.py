@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from models import Medicines, MedicinesCreate, MedicinesUpdate
+from models import Medicines, MedicinesCreate, MedicinesUpdate, MedicinesBase
 from services import medicine_services, get_by_name
 from db.engine import create_session
 
@@ -13,13 +13,22 @@ def read_medicines(
     skip: int = 0, limit: int = 200, session: Session = Depends(create_session)
 ):
     medicines = medicine_services.get_all(session, skip=skip, limit=limit)
+    if not medicines:
+        raise HTTPException(
+            status_code=404, detail="We don't have the results you're looking for." 
+        )
+
     return medicines
 
 
 # get 1 medicine from database
-@router.get("/medicine/{id}", tags=["medicine"], response_model=Medicines)
+@router.get("/medicine/{id}", tags=["medicine"], response_model=MedicinesBase)
 def read_medicine(id: int, session: Session = Depends(create_session)):
     medicine = medicine_services.get_one(session, id)
+    if not medicine:
+        raise HTTPException(
+            status_code=404, detail=f"Medicine with ID {id} not found."
+        )
     return medicine
 
 

@@ -9,23 +9,31 @@ from db.engine import create_session
 router = APIRouter()
 
 # get all users from database
-@router.get("/users", tags=["user"], response_model=list[User],dependencies=[Depends(JWTBearer())])
+@router.get("/users", tags=["user"], response_model=list[User])
 def read_users(
     skip: int = 0, limit: int = 200, session: Session = Depends(create_session)
 ):
     user = user_services.get_all(session, skip=skip, limit=limit)
+    if not user:
+        raise HTTPException(
+            status_code=404, detail="We don't have the results you're looking for."
+        )
     return user
 
 
 # get 1 user from database
-@router.get("/user/{id}", tags=["user"], response_model=UsersBase, dependencies=[Depends(JWTBearer())])
+@router.get("/user/{id}", tags=["user"], response_model=UsersBase)
 def read_user(id: int, session: Session = Depends(create_session)):
     user = user_services.get_one(session, id)
+    if not user:
+        raise HTTPException(
+            status_code=404, detail=f"User with ID {id} not found."
+        )
     return user
 
 
 # create a brand new user
-@router.post("/user", tags=["user"], response_model=UsersCreate,dependencies=[Depends(JWTBearer())])
+@router.post("/user", tags=["user"], response_model=UsersCreate)
 def create_user(
     user_schemas: UsersCreate, session: Session = Depends(create_session)
 ):
@@ -38,7 +46,7 @@ def create_user(
 
 
 # update some thing in a user
-@router.put("/user/{id}", tags=["user"], response_model=UsersUpdate,dependencies=[Depends(JWTBearer())])
+@router.put("/user/{id}", tags=["user"], response_model=UsersUpdate)
 def update_user(
     id: int,
     user_schemas: UsersUpdate,
@@ -51,7 +59,7 @@ def update_user(
     return user 
 
 # delete a user with ID
-@router.delete("/user/{id}", tags=["user"],dependencies=[Depends(JWTBearer())])
+@router.delete("/user/{id}", tags=["user"])
 def delete_user(id: int, session: Session = Depends(create_session)):
     user = user_services.get_one(session, id)
     session.close()

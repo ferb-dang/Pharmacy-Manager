@@ -10,7 +10,7 @@ class Medicines(Base):
     __tablename__ = "tbl_medicines"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    name = Column(String(50))
+    name = Column(String(50), unique = True)
     slug = Column(String(50))
     medical_function = Column(String(50))
     quantity = Column(Integer)

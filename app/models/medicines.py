@@ -14,7 +14,6 @@ class MedicinesBase (BaseModel):
 
 #FastApi will using these models to create data
 class MedicinesCreate (MedicinesBase):
-    id: int
     manufacture_date: date
     expire_date: date
     status: str

@@ -19,5 +19,4 @@ class UserService(BaseService[Users]):
         obj = self.save(session, obj)
         return obj
 
-
 user_services = UserService(Users)  # get_one and get_all and delete_one

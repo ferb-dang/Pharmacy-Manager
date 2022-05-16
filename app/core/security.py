@@ -1,10 +1,7 @@
-from datetime import datetime, timedelta
 import time
-from click import pass_context
 import jwt
 from fastapi import Request, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from typing import Dict
 from passlib.context import CryptContext
 
 from .config import SECRETKEY, ALGORITHM
@@ -33,7 +30,7 @@ def token_response(token: str):
 def sign_jwt(obj):
     payload = {
         "sub": obj,
-        "expiry": time.time() + 600
+        "expiry": time.time() + 5000
         }
     token = jwt.encode(payload, SECRETKEY, algorithm=ALGORITHM)  # Real JWT token
     return token_response(token)
@@ -52,8 +49,9 @@ def decode_jwt(token: str):
 
 # MiddleWare authenticate
 class JWTBearer(HTTPBearer):
-    def __init__(self, auto_error: bool = True):
+    def __init__(self,  role = [], auto_error: bool = True):
         super(JWTBearer, self).__init__(auto_error=auto_error)
+        self.role = role
 
     async def __call__(self, request: Request):
         credentials: HTTPAuthorizationCredentials = await super(
@@ -66,21 +64,25 @@ class JWTBearer(HTTPBearer):
                 raise HTTPException(
                     status_code=403, detail="Invalid authentication scheme."
                 )
-            if not self.verify_jwt(credentials.credentials):
+            payload = self.verify_jwt(credentials.credentials)
+            if not payload:
                 raise HTTPException(
                     status_code=403, detail="Invalid token or expired token."
                 )
+            # check role here
+            if self.role and payload.get("sub"): 
+                if payload.get("sub").get("role") not in self.role:
+                    raise HTTPException(
+                        status_code=401, detail="You dont have permission to access this api."
+                    )
             return credentials.credentials
         else:
             raise HTTPException(status_code=403, detail="Invalid authorization code.")
 
     def verify_jwt(self, jwtoken: str):
-        isTokenValid: bool = False
-
+        payload = None
         try:
             payload = decode_jwt(jwtoken)
         except:
-            payload = None
-        if payload:
-            isTokenValid = True
-        return isTokenValid
+            return None
+        return payload

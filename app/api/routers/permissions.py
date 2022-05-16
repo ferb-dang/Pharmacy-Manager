@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from models import  PermissionsBase
@@ -13,6 +13,10 @@ def read_permissions(
     skip: int = 0, limit: int = 200, session: Session = Depends(create_session)
 ):
     permission = permission_services.get_all(session, skip=skip, limit=limit)
+    if not permission:
+        raise HTTPException(
+            status_code=404, detail="We don't have the results you're looking for."
+        )
     return permission
 
 
@@ -20,5 +24,9 @@ def read_permissions(
 @router.get("/Permission/{id}", tags=["permission"], response_model=PermissionsBase)
 def read_permission(id: int, session: Session = Depends(create_session)):
     permission = permission_services.get_one(session, id)
+    if not permission:
+        raise HTTPException(
+            status_code=404, detail=f"Permission with ID {id} not found"
+        )
     return permission
 
