@@ -1,7 +1,9 @@
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine("postgresql://postgres:nam1ahai@localhost/dbo_pharmacy")
+from core.config import DB_STRING
+
+engine = create_engine(DB_STRING)
 # Create database engine
 
 

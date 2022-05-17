@@ -1,5 +1,6 @@
 # Compiled source files
 __pycache__/
+*.pytest_cache
 *.pyc
 *.pyd
 

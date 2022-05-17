@@ -16,7 +16,7 @@ class Users(Base):
     date_of_birth = Column(Date)
     email = Column(String(100))
     address = Column(String(500))
-    phone_numbers = Column(String(20), unique = True)
+    phone_numbers = Column(String(30), unique = True)
     roles = relationship(
         "Roles", backref="users"
     )  # Create database connection "tbl_users" with "tbl_roles"
