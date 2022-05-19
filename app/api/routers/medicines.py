@@ -13,11 +13,6 @@ def read_medicines(
     skip: int = 0, limit: int = 200, session: Session = Depends(create_session)
 ):
     medicines = medicine_services.get_all(session, skip=skip, limit=limit)
-    if not medicines:
-        raise HTTPException(
-            status_code=404, detail="We don't have the results you're looking for." 
-        )
-
     return medicines
 
 
@@ -27,7 +22,7 @@ def read_medicine(id: int, session: Session = Depends(create_session)):
     medicine = medicine_services.get_one(session, id)
     if not medicine:
         raise HTTPException(
-            status_code=404, detail=f"Medicine with ID {id} not found."
+            status_code=400, detail=f"Medicine with ID {id} not found."
         )
     return medicine
 
@@ -62,7 +57,7 @@ def update_medicine(
 
 
 # delete a medicine with ID
-@router.delete("/mecdicine/{id}", tags=["medicine"])
+@router.delete("/medicine/{id}", tags=["medicine"])
 def delete_medicine(id: int, session: Session = Depends(create_session)):
     medicine = medicine_services.get_one(session, id)
     if not medicine:
