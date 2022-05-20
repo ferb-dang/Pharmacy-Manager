@@ -1,40 +1,28 @@
-from fastapi.testclient import TestClient
-import unittest
-from main import app
+from .engine import EngineTestCase
 
 
-client = TestClient(app)
 
-class TestPermissions (unittest.TestCase):
-    _token = None
 
-    def setUp(self):
-        self.data = {"id": "2"}
-        self.login = {"user_name": "admin", "password": "admin"}
+class TestPermissions (EngineTestCase):
+    def setUp(self) -> None:
+        return super(TestPermissions).setUp()
 
-    def _get_access_token(self):
-        if not self._token:
-            res = client.post("/login", json=self.login)
-            self._token = res.json()["access_token"]
-        return self._token
+    def tearDown(self) -> None:
+        return super(TestPermissions).tearDown()
 
-    def _get_authorization_headers(self):
-        return {"Authorization": f"Bearer {self._get_access_token()}"}
-
-    def tearDown(self):
-        pass
-
+    #Test read all roles in DB
     def test_read_roles(self):
         headers = self._get_authorization_headers()
-        response = client.get(
+        response = self.client.get(
             "/roles?skip=0&limit=200", headers=headers
         )
         assert response.status_code == 200
 
+    #Test read a single role with given ID
     def test_read_role(self):
         headers = self._get_authorization_headers()
-        response = client.get(
-            f"/role/{self.data['id']}", headers=headers
+        response = self.client.get(
+            f"/role/{self.data1['id']}", headers=headers
         )
         assert response.status_code == 200
 

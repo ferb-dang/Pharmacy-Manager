@@ -8,16 +8,16 @@ from core.security import JWTBearer
 
 router = APIRouter()
 
-# get all orders from database
-def read_orders(
-    skip: int = 0, limit: int = 200, session: Session = Depends(create_session), dependencies=[Depends(JWTBearer([1,2,3]))]
-):
-    orders = order_services.get_all(session, skip=skip, limit=limit)
-    if not orders:
-        raise HTTPException(
-            status_code=404, detail="We don't have the results you're looking for."
-        )
-    return orders
+# # get all orders from database
+# def read_orders(
+#     skip: int = 0, limit: int = 200, session: Session = Depends(create_session), dependencies=[Depends(JWTBearer([1,2,3]))]
+# ):
+#     orders = order_services.get_all(session, skip=skip, limit=limit)
+#     if not orders:
+#         raise HTTPException(
+#             status_code=404, detail="We don't have the results you're looking for."
+#         )
+#     return orders
 
 # get 1 order from database
 @router.get("/order/{id}", tags=["order"], response_model=OrdersBase, dependencies=[Depends(JWTBearer([1,2,3]))])
