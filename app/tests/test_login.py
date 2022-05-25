@@ -1,16 +1,21 @@
 from passlib.context import CryptContext
-from .engine import EngineTestCase
 
+from .engine import EngineTestCase
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 SECRETKEY = "VoTmnFohfkzGnnFscDpM12"
 
+
 class TestSignupLogin(EngineTestCase):
-    def setUp(self) -> None:
-        return super(TestSignupLogin).setUp()
+    def setUp(self):
+        super(TestSignupLogin, self).setUp()
+        self.login_data3 = {
+            "user_name":"admin3",
+            "password":"admin3"
+        }
 
     def tearDown(self):
-        pass
+        super(TestSignupLogin, self).tearDown()
 
     #Hash password with secretkey
     def get_password(self, password):
@@ -18,9 +23,8 @@ class TestSignupLogin(EngineTestCase):
 
     #Test signup with success code - success data
     def test_signup(self):
-        response = self.client.post("/signup", json=self.signup2)
+        response = self.client.post("/signup", json=self.signup1)
         assert response.status_code == 200
-        assert response.json()['access_token']
 
     #Test signup with duplicate username
     def test_signup_fail(self):

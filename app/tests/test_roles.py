@@ -1,18 +1,16 @@
 from .engine import EngineTestCase
 
+class TestRoles (EngineTestCase):
+    def setUp(self):
+        super(TestRoles, self).setUp()
 
-
-
-class TestPermissions (EngineTestCase):
-    def setUp(self) -> None:
-        return super(TestPermissions).setUp()
-
-    def tearDown(self) -> None:
-        return super(TestPermissions).tearDown()
+    def tearDown(self):
+        super(TestRoles, self).tearDown()
 
     #Test read all roles in DB
     def test_read_roles(self):
         headers = self._get_authorization_headers()
+        print ("haha" , headers)
         response = self.client.get(
             "/roles?skip=0&limit=200", headers=headers
         )

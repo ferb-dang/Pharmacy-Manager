@@ -2,11 +2,38 @@ from .engine import EngineTestCase
 
 
 class TestUser (EngineTestCase):
-    def setUp(self) -> None:
-        return super(TestUser).setUp()
+    def setUp(self):
+        super(TestUser, self).setUp()
+        self.data2 = {
+            "id": "100"
+        }
 
-    def tearDown(self) -> None:
-        return super(TestUser).tearDown()
+        self.create_user2 = {
+            "role_id": "2",
+            "user_name": "pepper",
+            "password": "111111",
+            "name": "Thắng Đặng",
+            "gender": "Male",
+            "date_of_birth": "1999-06-07",
+            "email": "thang13576@gmail.com",
+            "address": "Hà Đông, Hà Lội",
+            "phone_numbers": "012345678"
+        }
+
+        self.create_user3 = {
+            "role_id": "2",
+            "user_name": "bumble bee",
+            "password": "111111",
+            "name": "Chi ong nau nau",
+            "gender": "Female",
+            "date_of_birth": "2000-11-29",
+            "email": "chiongnau@gmail.com",
+            "address": "Hà Đông, Hà Lội",
+            "phone_numbers": "012345678"
+        }
+
+    def tearDown(self):
+        super(TestUser, self).tearDown()
 
     #Test read all users in DB
     def test_read_users(self):

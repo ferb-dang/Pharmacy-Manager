@@ -2,11 +2,11 @@ from .engine import EngineTestCase
 
 
 class TestPermissions (EngineTestCase):
-    def setUp(self) -> None:
-        return super(TestPermissions).setUp()
+    def setUp(self):
+        super(TestPermissions, self).setUp()
 
-    def tearDown(self) -> None:
-        return super(TestPermissions).tearDown()
+    def tearDown(self):
+        super(TestPermissions, self).tearDown()
 
     #Test read all permissions
     def test_read_permissions(self):
@@ -20,7 +20,8 @@ class TestPermissions (EngineTestCase):
     def test_read_permission(self):
         headers = self._get_authorization_headers()
         response = self.client.get(
-            f"/Permissions/{self.data1['id']}", headers=headers
+            f"/Permission/{self.data1['id']}", headers=headers
         )
+        print("hihi", self.data1['id'])
         assert response.status_code == 200
 
