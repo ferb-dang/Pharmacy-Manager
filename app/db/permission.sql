@@ -45,3 +45,16 @@ VALUES
 ('4','7'),
 ('4','8');
 
+INSERT INTO tbl_users (role_id, user_name,password,name,gender,date_of_birth,email,address,phone_numbers)
+VALUES
+('1','admin','$2b$12$VoTmnFohfkzGnnFscDpM1uF5ALMlRcA4mcoUl7xsAM3Ppxhcrr9K.','Thắng','1','1999-06-07','thangdv@vmodev.com','Việt Nam','0936163984');
+-- ('1','admin1','$2b$12$VoTmnFohfkzGnnFscDpM1uJpSyAB9jVx4xUrfeEKWcyGBrWY/WCjC','Nam','1','1999-06-07','example@vmodev.com','Việt Nam','0123456789');
+
+INSERT INTO tbl_medicines (name, slug,medical_function,quantity,price,manufacture_date,expire_date,status)
+VALUES
+('vitamin A','','bo sung vitamin D','2000','1','2030-05-02','2022-04-03','out of stock'),
+('vitamin C','','bo sung vitamin C','656','876321','2022-07-07','2022-04-03','available');
+
+INSERT INTO tbl_orders (user_id, status,shipping_address,shipping_fee)
+VALUES
+('1','Dang Van Chuyen','Viet nam','1.000.000')

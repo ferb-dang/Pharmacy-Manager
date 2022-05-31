@@ -14,10 +14,6 @@ def read_users(
     skip: int = 0, limit: int = 200, session: Session = Depends(create_session)
 ):
     user = user_services.get_all(session, skip=skip, limit=limit)
-    if not user:
-        raise HTTPException(
-            status_code=404, detail="We don't have the results you're looking for."
-        )
     return user
 
 
@@ -33,14 +29,17 @@ def read_user(id: int, session: Session = Depends(create_session)):
 
 
 # create a brand new user
-@router.post("/user", tags=["user"], response_model=UsersCreate)
+@router.post("/user", tags=["user"], response_model=UsersBase)
 def create_user(
     user_schemas: UsersCreate, session: Session = Depends(create_session)
-):
+):  
+    user = user_services.check_user_name(session=session, user_name=user_schemas.user_name)
+    if user:
+        raise HTTPException(status_code=400, detail="User with this user_name already exist in database")
+
     user = user_services.check_phone_number(session=session, phone= user_schemas.phone_numbers)
     if user:
         raise HTTPException(status_code=400, detail="User with this phone number already exist in database")
-
     user = user_services.create_one(session, user_schemas)
     return user
 

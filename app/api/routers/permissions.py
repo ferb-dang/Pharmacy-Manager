@@ -13,10 +13,6 @@ def read_permissions(
     skip: int = 0, limit: int = 200, session: Session = Depends(create_session)
 ):
     permission = permission_services.get_all(session, skip=skip, limit=limit)
-    if not permission:
-        raise HTTPException(
-            status_code=404, detail="We don't have the results you're looking for."
-        )
     return permission
 
 

@@ -35,7 +35,7 @@ def create_medicine(
     medicine = get_by_name(session, name=medicine_schemas.name)
     if medicine:
         raise HTTPException(
-            status_code=400, detail="Medicine with this ID already exist in database"
+            status_code=400, detail="Medicine with this name already exist in database"
         )
 
     medicine = medicine_services.create_one(session, medicine_schemas)

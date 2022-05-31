@@ -1,42 +1,51 @@
-from fastapi.testclient import TestClient
-import unittest
-from main import app
+# from .engine import EngineTestCase
 
 
-client = TestClient(app)
+# class TestOrder(EngineTestCase):
+#     def setUp(self):
+#         super(TestOrder, self).setUp()
+#         self.data2 = {
+#             "id": "100"
+#         }
+
+#     def tearDown(self):
+#         super(TestOrder, self).tearDown()
+    
+
+#     #Test read 1 order with given ID
+#     def test_read_order(self):
+#         headers = self._get_authorization_headers()
+#         response = self.client.get(f"/order/{self.data1['id']}", headers=headers)
+#         assert response.status_code == 200
+
+#     #Test read 1 order with given ID fail
+#     def test_read_order_fail(self):
+#         headers = self._get_authorization_headers()
+#         response = self.client.get(f"/order/{self.data2['id']}", headers=headers)
+#         assert response.status_code == 404
 
 
-class TestMedicine(unittest.TestCase):
-    _token = None
+#     #Test update 1 order with given ID
+#     def test_update_order(self):
+#         headers = self._get_authorization_headers()
+#         response = self.client.put(f"/order/{self.data1['id']}",json=self.update_order,headers=headers)
+#         assert response.status_code == 200
 
-    def setUp(self):
-        self.data = {"id": "1"}
-        self.login = {"user_name": "admin", "password": "admin"}
+#     #Test update 1 order with given ID fail
+#     def test_update_order_fail(self):
+#         headers = self._get_authorization_headers()
+#         response = self.client.put(f"/order/{self.data2['id']}",json=self.update_order,headers=headers)
+#         assert response.status_code == 400
 
-    def _get_access_token(self):
-        if not self._token:
-            res = client.post("/login", json=self.login)
-            self._token = res.json()["access_token"]
-        return self._token
+#     #Test delete 1 order with given ID
+#     def test_delete_order(self):
+#         headers = self._get_authorization_headers()
+#         response = self.client.delete(f"/order/{self.data1['id']}",headers=headers)
+#         assert response.status_code == 200
 
-    def _get_authorization_headers(self):
-        return {"Authorization": f"Bearer {self._get_access_token()}"}
-
-    def tearDown(self):
-        pass
-
-    def test_read_order(self):
-        headers = self._get_authorization_headers()
-        response = client.get(f"/order/{self.data['id']}", headers=headers)
-        assert response.status_code == 200
-
-    def test_update_order(self):
-        headers = self._get_authorization_headers()
-        response = client.post(f"/order/{self.data['id']}", headers=headers)
-        assert response.status_code == 400
-
-    def test_delete_medicine(self):
-        headers = self._get_authorization_headers()
-        response = client.delete(f"/medicine/{self.data['id']}",headers=headers)
-        assert response.status_code == 200
+#     #Test delete 1 order with unexist ID
+#     def test_delete_order_fail(self):
+#         headers = self._get_authorization_headers()
+#         response = self.client.delete(f"/order/{self.data2['id']}",headers=headers)
+#         assert response.status_code == 404
         

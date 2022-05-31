@@ -1,31 +1,98 @@
-# from faker import Faker
-# from fastapi.encoders import jsonable_encoder
+from .engine import EngineTestCase
 
-# from db.engine import session_local
-# from models import UsersBase
-# from services import user_services
 
-# fake = Faker()
+class TestUser(EngineTestCase):
+    def setUp(self):
+        super(TestUser, self).setUp()
+        self.data2 = {"id": "100"}
 
-# def test_get_user():
-#     user_dict = {
-#         "role_id": fake.random_int(min=1,max=4),
-#         "user_name": fake.pystr(min_chars= 4, max_chars=20),
-#         "password": fake.password(length=10),
-#         "name":fake.name(),
-#         "gender":fake.random_int(min=0,max=1),
-#         "date_of_birth":fake.date_of_birth(),
-#         "email":fake.ascii_free_email(),
-#         "address":fake.street_address(),
-#         "phone_numbers":fake.phone_number()
-#     }
+        self.create_user2 = {
+            "role_id": "2",
+            "user_name": "pepper",
+            "password": "111111",
+            "name": "Thắng Đặng",
+            "gender": 1,
+            "date_of_birth": "1999-06-07",
+            "email": "thang13576@gmail.com",
+            "address": "Hà Đông, Hà Lội",
+            "phone_numbers": "012345678",
+        }
 
-#     user_in = UsersBase(**user_dict)
+        self.create_user3 = {
+            "role_id": "2",
+            "user_name": "bumble bee",
+            "password": "111111",
+            "name": "Chi ong nau nau",
+            "gender": 0,
+            "date_of_birth": "2000-11-29",
+            "email": "chiongnau@gmail.com",
+            "address": "Hà Đông, Hà Lội",
+            "phone_numbers": "012345678",
+        }
 
-#     user_create=user_services.create_one(session_local(), obj=user_in)
+    def tearDown(self):
+        super(TestUser, self).tearDown()
 
-#     user_get=user_services.get_one(session_local(), id=user_create.id)
-    
-#     assert user_create.user_name == user_get.user_name
-#     assert jsonable_encoder(user_create)==jsonable_encoder(user_get)
+    # Test read all users in DB
+    def test_read_users(self):
+        headers = self._get_authorization_headers()
+        response = self.client.get("/users", headers=headers)
+        assert response.status_code == 200
 
+    # Test read 1 user with given ID
+    def test_read_user(self):
+        headers = self._get_authorization_headers()
+        response = self.client.get(f"/user/{self.data1['id']}", headers=headers)
+        assert response.status_code == 200
+
+    # Test read 1 user with unexist ID
+    def test_read_user(self):
+        headers = self._get_authorization_headers()
+        response = self.client.get(f"/user/{self.data2['id']}", headers=headers)
+        assert response.status_code == 404
+
+    # Test create user with given data
+    def test_create_user(self):
+        headers = self._get_authorization_headers()
+        response = self.client.post("/user", json=self.create_user1, headers=headers)
+        assert response.status_code == 200
+
+    # Test create user with duplicate username
+    def test_create_user_case1(self):
+        headers = self._get_authorization_headers()
+        response = self.client.post("/user", json=self.create_user2, headers=headers)
+        assert response.status_code == 400
+
+    # Test create user with duplicate phone number
+    def test_create_user_case2(self):
+        headers = self._get_authorization_headers()
+        response = self.client.post("/user", json=self.create_user3, headers=headers)
+        assert response.status_code == 400
+
+    # Test update user with given ID
+    def test_update_user(self):
+        headers = self._get_authorization_headers()
+        response = self.client.put(
+            f"/user/{self.data1['id']}", json=self.create_user1, headers=headers
+        )
+        assert response.status_code == 200
+
+    # Test update user with unexist ID
+    def test_update_user_fail(self):
+        headers = self._get_authorization_headers()
+        response = self.client.put(
+            f"/user/{self.data2['id']}", json=self.create_user1, headers=headers
+        )
+        assert response.status_code == 400
+
+    # Test delete user with given id
+    def test_delete_user(self):
+        headers = self._get_authorization_headers()
+        response = self.client.delete(f"/user/{self.data1['id']}", headers=headers)
+        assert response.status_code == 200
+
+    # Test delete user with unexist id
+    def test_delete_user_fail(self):
+        headers = self._get_authorization_headers()
+        response = self.client.delete(f"/user/{self.data2['id']}", headers=headers)
+        assert response.status_code == 404
