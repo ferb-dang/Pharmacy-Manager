@@ -1,5 +1,9 @@
 # Pharmacy manager using FastAPI and SQLAlchemy
+**Source Code:** https://github.com/peppernotpeppers/Pharmacy-Manager
+
 By Pepper
+
+---
 
 
 ## About
