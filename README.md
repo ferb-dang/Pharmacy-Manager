@@ -22,7 +22,7 @@ Pharmacy manager is created to manage edicinal herbs and medicines products as w
 * **FastAPI:** is a Python framework and a set of tools that allow developers to invoke commonly used functions using a REST interface.
 * **SQLAlchemy:** is the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL.
 * **Pydantic:** Data validation and settings management using python type annotations/
-* **Faker:** Faker is a Python package that generates fake data
+* **Faker:** is a Python package that generates fake data
 * **PyJWT:** is a Python library which allows you to encode and decode JSON Web Tokens (JWT).
 * **PyTest:** is a framework makes it easy to write small, readable tests, and can scale to support complex functional testing for applications and libraries.
 
