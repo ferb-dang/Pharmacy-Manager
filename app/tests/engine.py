@@ -21,10 +21,8 @@ class EngineTestCase (TestCase):
 
     #setUp some record for the test
     def setUp(self):
-        #Setting a new database and connect 
-        
-        # self.metadata = MetaData(bind=engine)
-        # self.metadata.create_all(dbmodels)
+        #Setting a new database and connects
+        dbmodels.Base.metadata.drop_all(engine)
         dbmodels.Base.metadata.create_all(engine)
         with engine.connect() as con:
             filename = os.path.join(Path(__file__).parent.parent,'db','permission.sql')
@@ -76,11 +74,11 @@ class EngineTestCase (TestCase):
         }
 
         self.create_user1 = {
-            "role_id": "2",
+            "role_id": 2,
             "user_name": "pepper",
             "password": "123456",
             "name": "Thắng",
-            "gender": "Male",
+            "gender": 0,
             "date_of_birth": "1999-06-07",
             "email": "thangdv@vmodev.com",
             "address": "Hà Đông, Hà Lội",
@@ -90,7 +88,6 @@ class EngineTestCase (TestCase):
     def _get_access_token(self):
         if not self._token:
             res = self.client.post("/login", json=self.login_data1)
-            print(res)
             self._token = res.json()["access_token"]
         return self._token
 
@@ -100,4 +97,4 @@ class EngineTestCase (TestCase):
     #tearDown func to auto clean all the record after test
     def tearDown(self):
         dbmodels.Base.metadata.drop_all(engine)
-
+        # ...

@@ -12,15 +12,6 @@ router = APIRouter()
 
 @router.post("/signup", tags=["login"])
 def signup_user(user_schemas: UserSignIn, session: Session = Depends(create_session)):
-    # passwordhash = password_hash(user_schemas.password)
-    # user_login = Users(
-    #     role_id=user_schemas.role_id,
-    #     user_name=user_schemas.user_name,
-    #     password=passwordhash
-    # )
-    # session.add(user_login)
-    # session.commit()
-    # session.refresh(user_login)
     user = user_services.check_user_name(
         session=session, user_name=user_schemas.user_name
     )

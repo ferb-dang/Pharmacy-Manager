@@ -19,7 +19,9 @@ class UsersBase (BaseModel):
 
 #FastApi will using these models to create data
 class UsersCreate (UsersBase):
-    pass
+    class Config:
+        orm_mode = False
+
 
 class UserSignIn (BaseModel):
     role_id: int

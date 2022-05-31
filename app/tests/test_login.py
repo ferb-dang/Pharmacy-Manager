@@ -9,6 +9,12 @@ SECRETKEY = "VoTmnFohfkzGnnFscDpM12"
 class TestSignupLogin(EngineTestCase):
     def setUp(self):
         super(TestSignupLogin, self).setUp()
+        self.signup2 = {
+            "role_id":"1",
+            "user_name":"admin",
+            "password":"admin"
+        }
+
         self.login_data3 = {
             "user_name":"admin3",
             "password":"admin3"
@@ -28,7 +34,7 @@ class TestSignupLogin(EngineTestCase):
 
     #Test signup with duplicate username
     def test_signup_fail(self):
-        response = self.client.post("/signup",json=self.signup1)
+        response = self.client.post("/signup",json=self.signup2)
         assert response.status_code == 400
 
     #Test login with success data - success user_name and pass

@@ -29,11 +29,11 @@ def read_user(id: int, session: Session = Depends(create_session)):
 
 
 # create a brand new user
-@router.post("/user", tags=["user"], response_model=UsersCreate)
+@router.post("/user", tags=["user"], response_model=UsersBase)
 def create_user(
     user_schemas: UsersCreate, session: Session = Depends(create_session)
 ):  
-    user = user_services.check_user_name(session=session, phone= user_schemas.user_name)
+    user = user_services.check_user_name(session=session, user_name=user_schemas.user_name)
     if user:
         raise HTTPException(status_code=400, detail="User with this user_name already exist in database")
 
