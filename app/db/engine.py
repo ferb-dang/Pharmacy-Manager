@@ -8,9 +8,10 @@ engine = create_engine(DB_STRING)
 
 
 session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-#Create new "session" to db when being called
+# Create new "session" to db when being called
 
-def create_session(): #Each time, a session is being generate, they will execute, then close..... then generate a new one -> repeat
+
+def create_session():  # Each time, a session is being generate, they will execute, then close..... then generate a new one -> repeat
     db = session_local()
     try:
         yield db

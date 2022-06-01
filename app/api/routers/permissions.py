@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from models import  PermissionsBase
+from models import PermissionsBase
 from services import permission_services
 from db.engine import create_session
 
@@ -25,4 +25,3 @@ def read_permission(id: int, session: Session = Depends(create_session)):
             status_code=404, detail=f"Permission with ID {id} not found"
         )
     return permission
-

@@ -28,10 +28,7 @@ def token_response(token: str):
 
 # Create JWT token using payload, SECRET, ALGORITHM
 def sign_jwt(obj):
-    payload = {
-        "sub": obj,
-        "expiry": time.time() + 5000
-        }
+    payload = {"sub": obj, "expiry": time.time() + 5000}
     token = jwt.encode(payload, SECRETKEY, algorithm=ALGORITHM)  # Real JWT token
     return token_response(token)
 
@@ -45,11 +42,9 @@ def decode_jwt(token: str):
         return {}
 
 
-
-
 # MiddleWare authenticate
 class JWTBearer(HTTPBearer):
-    def __init__(self,  role = [], auto_error: bool = True):
+    def __init__(self, role=[], auto_error: bool = True):
         super(JWTBearer, self).__init__(auto_error=auto_error)
         self.role = role
 
@@ -70,10 +65,11 @@ class JWTBearer(HTTPBearer):
                     status_code=403, detail="Invalid token or expired token."
                 )
             # check role here
-            if self.role and payload.get("sub"): 
+            if self.role and payload.get("sub"):
                 if payload.get("sub").get("role") not in self.role:
                     raise HTTPException(
-                        status_code=401, detail="You dont have permission to access this api."
+                        status_code=401,
+                        detail="You dont have permission to access this api.",
                     )
             return credentials.credentials
         else:

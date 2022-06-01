@@ -1,7 +1,7 @@
 from sqlalchemy import Integer, String, Column, Date
 from sqlalchemy.orm import relationship
 
-from db.base import Base 
+from db.base import Base
 from .order_medicine_association import order_medicine
 
 
@@ -10,7 +10,7 @@ class Medicines(Base):
     __tablename__ = "tbl_medicines"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    name = Column(String(50), unique = True)
+    name = Column(String(50), unique=True)
     slug = Column(String(50))
     medical_function = Column(String(50))
     quantity = Column(Integer)

@@ -22,4 +22,3 @@ def read_roles(
 def read_roles(id: int, session: Session = Depends(create_session)):
     role = role_services.get_one(session, id)
     return role
-

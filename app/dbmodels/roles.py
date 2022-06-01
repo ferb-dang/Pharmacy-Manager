@@ -16,5 +16,3 @@ class Roles(Base):
     permissions = relationship(
         "Permissions", secondary=role_permission
     )  # Setting connection tbl_permissions with tbl_role_permission
-
-

@@ -1,7 +1,6 @@
 # from .engine import EngineTestCase
 
 
-
 # class TestMedicine(EngineTestCase):
 #     def setUp(self):
 #         super(TestMedicine, self).setUp()
@@ -52,7 +51,7 @@
 #     def test_create_medicine_fail(self):
 #         headers = self._get_authorization_headers()
 #         response = self.client.post("/medicine",json=self.create_medicine2, headers=headers)
-#         assert response.status_code == 400    
+#         assert response.status_code == 400
 
 #     # Test update medicine with ID
 #     def test_update_medicine(self):
@@ -71,7 +70,7 @@
 #         headers = self._get_authorization_headers()
 #         response = self.client.delete(f"/medicine/{self.data1['id']}",headers=headers)
 #         assert response.status_code == 200
-        
+
 #     #Test delete medicine with unexist ID
 #     def test_delete_medicine_fail(self):
 #         headers = self._get_authorization_headers()

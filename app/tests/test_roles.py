@@ -23,4 +23,3 @@
 #             f"/role/{self.data1['id']}", headers=headers
 #         )
 #         assert response.status_code == 200
-

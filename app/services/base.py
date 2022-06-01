@@ -39,7 +39,6 @@ class BaseService(Generic[ModelType]):  # get all "any" record from database
         session.refresh(obj)
         return obj
 
-
     def update(self, session: Session, id: int, data: any):
         instance = session.query(self.model).filter(self.model.id == id).first()
 
@@ -59,7 +58,9 @@ class BaseService(Generic[ModelType]):  # get all "any" record from database
         return db_delete
 
     def authenticate(self, session: Session, user_name: str):
-        authen_by_user_name = session.query(self.model).filter(self.model.user_name == user_name).first()
+        authen_by_user_name = (
+            session.query(self.model).filter(self.model.user_name == user_name).first()
+        )
         if not authen_by_user_name:
             return None
         return authen_by_user_name

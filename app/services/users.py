@@ -5,7 +5,11 @@ from core import password_hash
 
 class UserService(BaseService[Users]):
     def check_exist_user(self, session: Session, user_name: str, password: str):
-        return session.query(Users).filter(Users.user_name==user_name, Users.password==password).first()
+        return (
+            session.query(Users)
+            .filter(Users.user_name == user_name, Users.password == password)
+            .first()
+        )
 
     def check_user_name(self, session: Session, user_name: str):
         return session.query(Users).filter(Users.user_name == user_name).first()
@@ -18,5 +22,6 @@ class UserService(BaseService[Users]):
         obj.password = password_hash(obj.password)
         obj = self.save(session, obj)
         return obj
+
 
 user_services = UserService(Users)  # get_one and get_all and delete_one

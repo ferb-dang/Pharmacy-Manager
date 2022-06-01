@@ -10,7 +10,7 @@
 
 #     def tearDown(self):
 #         super(TestOrder, self).tearDown()
-    
+
 
 #     #Test read 1 order with given ID
 #     def test_read_order(self):
@@ -48,4 +48,3 @@
 #         headers = self._get_authorization_headers()
 #         response = self.client.delete(f"/order/{self.data2['id']}",headers=headers)
 #         assert response.status_code == 404
-        

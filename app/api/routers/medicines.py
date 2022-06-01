@@ -21,9 +21,7 @@ def read_medicines(
 def read_medicine(id: int, session: Session = Depends(create_session)):
     medicine = medicine_services.get_one(session, id)
     if not medicine:
-        raise HTTPException(
-            status_code=400, detail=f"Medicine with ID {id} not found."
-        )
+        raise HTTPException(status_code=400, detail=f"Medicine with ID {id} not found.")
     return medicine
 
 
