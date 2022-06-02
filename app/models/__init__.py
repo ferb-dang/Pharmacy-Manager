@@ -1,5 +1,5 @@
 from .medicines import Medicines, MedicinesBase, MedicinesCreate, MedicinesUpdate
-from .orders import Orders, OrdersBase, OrdersCreate, OrdersStatusUpdate, OrdersUpdate
+from .orders import Orders, OrdersBase, OrdersCreate, OrdersStatusUpdate, OrdersUpdate, OrderResponse
 from .permissions import (
     Permissions,
     PermissionsBase,

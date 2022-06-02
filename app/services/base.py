@@ -18,13 +18,14 @@ class BaseService(Generic[ModelType]):  # get all "any" record from database
     def get_one(self, session: Session, id: int):  # Get one row with ID
         return session.query(self.model).filter(self.model.id == id).first()
 
-    def create_one(self, session: Session, obj: any):
+    def create_one(self, session: Session, obj: any, autocommit=True):
         translate = self.model()
         for k in dict(obj):
             setattr(translate, k, getattr(obj, k, ""))
         session.add(translate)
-        session.commit()
-        session.refresh(translate)
+        if autocommit:
+            session.commit()
+            session.refresh(translate)
         return translate
 
     def create_one_temp(self, session: Session, obj: any):

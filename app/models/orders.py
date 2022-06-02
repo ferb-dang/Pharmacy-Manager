@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import List, Optional
 
 
 # You can read data from these models
@@ -14,7 +14,7 @@ class OrdersBase(BaseModel):
 
 # FastApi will using these models to create data
 class OrdersCreate(OrdersBase):
-    pass
+    medicine_order: List = None
 
 
 # FastApi will using these models to update order fee and address
@@ -27,5 +27,19 @@ class OrdersStatusUpdate(BaseModel):
     status: str
 
 
-class Orders(OrdersBase):
+class MedicineResponse(BaseModel):
     id: int
+    name: str
+    medical_function: str
+    price: str
+
+    class Config:
+        orm_mode=True
+
+
+class OrderResponse(OrdersBase):
+    medicines: List[MedicineResponse] = None
+
+
+class Orders(OrdersBase):
+    pass

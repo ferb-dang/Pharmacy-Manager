@@ -8,13 +8,15 @@ SECRETKEY = "VoTmnFohfkzGnnFscDpM12"
 
 class TestSignupLogin(EngineTestCase):
     def setUp(self):
-        super(TestSignupLogin, self).setUp()
+        # super(TestSignupLogin, self).setUp()
+        super().setUp()
         self.signup2 = {"role_id": "1", "user_name": "admin", "password": "admin"}
 
         self.login_data3 = {"user_name": "admin3", "password": "admin3"}
 
     def tearDown(self):
-        super(TestSignupLogin, self).tearDown()
+        # super(TestSignupLogin, self).tearDown()
+        super().tearDown()
 
     # Hash password with secretkey
     def get_password(self, password):
@@ -23,6 +25,7 @@ class TestSignupLogin(EngineTestCase):
     # Test signup with success code - success data
     def test_signup(self):
         response = self.client.post("/signup", json=self.signup1)
+        print(response.content)
         assert response.status_code == 200
 
     # Test signup with duplicate username

@@ -8,7 +8,7 @@ By Pepper
 
 ## About
 
-Pharmacy manager is created to manage edicinal herbs and medicines products as well as manage user accounts and its orders.
+A pharmacy manager is created to manage medical herbs and medicines products as well as manage user accounts and orders.
 
 ## Feature
 

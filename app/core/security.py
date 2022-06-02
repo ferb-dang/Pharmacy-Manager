@@ -28,7 +28,7 @@ def token_response(token: str):
 
 # Create JWT token using payload, SECRET, ALGORITHM
 def sign_jwt(obj):
-    payload = {"sub": obj, "expiry": time.time() + 5000}
+    payload = {"sub": obj, "expiry": time.time() + 86400}
     token = jwt.encode(payload, SECRETKEY, algorithm=ALGORITHM)  # Real JWT token
     return token_response(token)
 

@@ -5,18 +5,32 @@ import os
 from pathlib import Path
 from unittest import TestCase
 from fastapi.testclient import TestClient
+from sqlalchemy.orm import sessionmaker
 
 from core.config import DB_TEST_STRING
+from db.engine import create_session
 from main import app
 import dbmodels
 
 
 engine = create_engine(DB_TEST_STRING)
 
+session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+# Create new "session" to db when being called
+
+
+def override_create_session():  # Each time, a session is being generate, they will execute, then close..... then generate a new one -> repeat
+    db = session_local()
+    try:
+        yield db
+    finally:
+        db.close()
+
 
 class EngineTestCase(TestCase):
     meta = MetaData()
     client = TestClient(app)
+    app.dependency_overrides[create_session] = override_create_session
     _token = None
 
     # setUp some record for the test
@@ -90,4 +104,4 @@ class EngineTestCase(TestCase):
     # tearDown func to auto clean all the record after test
     def tearDown(self):
         dbmodels.Base.metadata.drop_all(engine)
-        # ...
+        ...

@@ -47,8 +47,8 @@ VALUES
 
 INSERT INTO tbl_users (role_id, user_name,password,name,gender,date_of_birth,email,address,phone_numbers)
 VALUES
-('1','admin','$2b$12$VoTmnFohfkzGnnFscDpM1uF5ALMlRcA4mcoUl7xsAM3Ppxhcrr9K.','Thắng','1','1999-06-07','thangdv@vmodev.com','Việt Nam','0936163984');
--- ('1','admin1','$2b$12$VoTmnFohfkzGnnFscDpM1uJpSyAB9jVx4xUrfeEKWcyGBrWY/WCjC','Nam','1','1999-06-07','example@vmodev.com','Việt Nam','0123456789');
+('1','admin','$2b$12$VoTmnFohfkzGnnFscDpM1uF5ALMlRcA4mcoUl7xsAM3Ppxhcrr9K.','Thắng','1','1999-06-07','thangdv@vmodev.com','Việt Nam','0936163984'),
+('1','admin1','$2b$12$VoTmnFohfkzGnnFscDpM1uJpSyAB9jVx4xUrfeEKWcyGBrWY/WCjC','Nam','1','1999-06-07','example@vmodev.com','Việt Nam','012345678');
 
 INSERT INTO tbl_medicines (name, slug,medical_function,quantity,price,manufacture_date,expire_date,status)
 VALUES

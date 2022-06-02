@@ -8,20 +8,20 @@ class TestUser(EngineTestCase):
 
         self.create_user2 = {
             "role_id": "2",
-            "user_name": "pepper",
-            "password": "111111",
+            "user_name": "admin1",
+            "password": "admin",
             "name": "Thắng Đặng",
             "gender": 1,
             "date_of_birth": "1999-06-07",
             "email": "thang13576@gmail.com",
             "address": "Hà Đông, Hà Lội",
-            "phone_numbers": "012345678",
+            "phone_numbers": "0123456789",
         }
 
         self.create_user3 = {
             "role_id": "2",
-            "user_name": "bumble bee",
-            "password": "111111",
+            "user_name": "bumblebee",
+            "password": "admin",
             "name": "Chi ong nau nau",
             "gender": 0,
             "date_of_birth": "2000-11-29",
@@ -46,7 +46,7 @@ class TestUser(EngineTestCase):
         assert response.status_code == 200
 
     # Test read 1 user with unexist ID
-    def test_read_user(self):
+    def test_read_user_fail(self):
         headers = self._get_authorization_headers()
         response = self.client.get(f"/user/{self.data2['id']}", headers=headers)
         assert response.status_code == 404
