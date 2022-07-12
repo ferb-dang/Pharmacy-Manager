@@ -9,7 +9,7 @@ dbmodels.Base.metadata.create_all(engine)
 
 
 with engine.connect() as con:
-    filename = os.path.join(os.getcwd(), "db", "permission.sql")
+    filename = os.path.join(os.getcwd(),"app", "db", "permission.sql")
     with open(filename) as file:
         query = text(file.read())
         con.execute(query)

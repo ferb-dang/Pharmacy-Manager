@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from models import Medicines, MedicinesCreate, MedicinesUpdate, MedicinesBase
 from services import medicine_services, get_by_name
 from db.engine import create_session
+from handler.error_code import *
 
 router = APIRouter()
 
@@ -21,7 +22,7 @@ def read_medicines(
 def read_medicine(id: int, session: Session = Depends(create_session)):
     medicine = medicine_services.get_one(session, id)
     if not medicine:
-        raise HTTPException(status_code=400, detail=f"Medicine with ID {id} not found.")
+        raise HTTPException(status_code = 400, detail=HTTP_400_BAD_REQUEST.get(400002))
     return medicine
 
 
